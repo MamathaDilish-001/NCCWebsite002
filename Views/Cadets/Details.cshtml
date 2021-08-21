@@ -1,0 +1,66 @@
+﻿@model NCCWebsite002.cadet
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>cadet</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nccregno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nccregno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cadetname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cadetname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.phoneno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.phoneno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.course)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.cadetid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

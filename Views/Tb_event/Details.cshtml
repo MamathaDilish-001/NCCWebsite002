@@ -1,0 +1,58 @@
+﻿@model NCCWebsite002.tb_event
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tb_event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.eventname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eventdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eventvenue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventvenue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eventimage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventimage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.eventdesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.eventdesc)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.eventid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

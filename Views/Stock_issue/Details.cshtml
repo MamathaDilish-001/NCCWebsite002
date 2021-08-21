@@ -1,0 +1,58 @@
+﻿@model NCCWebsite002.stock_issue
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>stock_issue</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.issuedate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issuedate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.issueqty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.issueqty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stockid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stockid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cadet.nccregno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cadet.nccregno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stock.stockname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stock.stockname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.stockissueid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

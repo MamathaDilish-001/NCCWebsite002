@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_nccModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cadet">
+          <Key>
+            <PropertyRef Name="cadetid" />
+          </Key>
+          <Property Name="cadetid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nccregno" Type="nvarchar" MaxLength="50" />
+          <Property Name="cadetname" Type="nvarchar" MaxLength="50" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="phoneno" Type="nvarchar" MaxLength="50" />
+          <Property Name="course" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="enrollment">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admnno" Type="nvarchar" MaxLength="50" />
+          <Property Name="studentname" Type="nvarchar" MaxLength="50" />
+          <Property Name="dob" Type="nvarchar" MaxLength="50" />
+          <Property Name="gender" Type="nvarchar" MaxLength="50" />
+          <Property Name="phoneno" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="course" Type="nvarchar" MaxLength="50" />
+          <Property Name="year" Type="nvarchar" MaxLength="50" />
+          <Property Name="aboutdesc" Type="text" />
+          <Property Name="reason" Type="text" />
+        </EntityType>
+        <EntityType Name="stock_issue">
+          <Key>
+            <PropertyRef Name="stockissueid" />
+          </Key>
+          <Property Name="stockissueid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cadetid" Type="int" />
+          <Property Name="issuedate" Type="nvarchar" MaxLength="50" />
+          <Property Name="issueqty" Type="int" />
+          <Property Name="stockid" Type="int" />
+        </EntityType>
+        <EntityType Name="stocks">
+          <Key>
+            <PropertyRef Name="stockid" />
+          </Key>
+          <Property Name="stockid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockname" Type="nvarchar" MaxLength="50" />
+          <Property Name="stockqty" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_event">
+          <Key>
+            <PropertyRef Name="eventid" />
+          </Key>
+          <Property Name="eventid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="eventname" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventdate" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventvenue" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventimage" Type="nvarchar" MaxLength="50" />
+          <Property Name="eventdesc" Type="text" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_enrollment_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="enrollment" Type="Self.enrollment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="enrollment">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_issue_cadet">
+          <End Role="cadet" Type="Self.cadet" Multiplicity="0..1" />
+          <End Role="stock_issue" Type="Self.stock_issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cadet">
+              <PropertyRef Name="cadetid" />
+            </Principal>
+            <Dependent Role="stock_issue">
+              <PropertyRef Name="cadetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_issue_stocks">
+          <End Role="stocks" Type="Self.stocks" Multiplicity="1" />
+          <End Role="stock_issue" Type="Self.stock_issue" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="stocks">
+              <PropertyRef Name="stockid" />
+            </Principal>
+            <Dependent Role="stock_issue">
+              <PropertyRef Name="stockissueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_nccModelStoreContainer">
+          <EntitySet Name="cadet" EntityType="Self.cadet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="enrollment" EntityType="Self.enrollment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stock_issue" EntityType="Self.stock_issue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stocks" EntityType="Self.stocks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_event" EntityType="Self.tb_event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_enrollment_users" Association="Self.FK_enrollment_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="enrollment" EntitySet="enrollment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_issue_cadet" Association="Self.FK_stock_issue_cadet">
+            <End Role="cadet" EntitySet="cadet" />
+            <End Role="stock_issue" EntitySet="stock_issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_issue_stocks" Association="Self.FK_stock_issue_stocks">
+            <End Role="stocks" EntitySet="stocks" />
+            <End Role="stock_issue" EntitySet="stock_issue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_nccModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cadet">
+          <Key>
+            <PropertyRef Name="cadetid" />
+          </Key>
+          <Property Name="cadetid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nccregno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cadetname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="stock_issue" Relationship="Self.FK_stock_issue_cadet" FromRole="cadet" ToRole="stock_issue" />
+        </EntityType>
+        <EntityType Name="enrollment">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="admnno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="studentname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phoneno" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="course" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="aboutdesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_enrollment_users" FromRole="enrollment" ToRole="users" />
+        </EntityType>
+        <EntityType Name="stock_issue">
+          <Key>
+            <PropertyRef Name="stockissueid" />
+          </Key>
+          <Property Name="stockissueid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cadetid" Type="Int32" />
+          <Property Name="issuedate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="issueqty" Type="Int32" />
+          <Property Name="stockid" Type="Int32" />
+          <NavigationProperty Name="cadet" Relationship="Self.FK_stock_issue_cadet" FromRole="stock_issue" ToRole="cadet" />
+          <NavigationProperty Name="stock" Relationship="Self.FK_stock_issue_stocks" FromRole="stock_issue" ToRole="stocks" />
+        </EntityType>
+        <EntityType Name="stock">
+          <Key>
+            <PropertyRef Name="stockid" />
+          </Key>
+          <Property Name="stockid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="stockqty" Type="Int32" />
+          <NavigationProperty Name="stock_issue" Relationship="Self.FK_stock_issue_stocks" FromRole="stocks" ToRole="stock_issue" />
+        </EntityType>
+        <EntityType Name="tb_event">
+          <Key>
+            <PropertyRef Name="eventid" />
+          </Key>
+          <Property Name="eventid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="eventname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventdate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventvenue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventimage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventdesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userid" />
+          </Key>
+          <Property Name="userid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="enrollment" Relationship="Self.FK_enrollment_users" FromRole="users" ToRole="enrollment" />
+        </EntityType>
+        <Association Name="FK_stock_issue_cadet">
+          <End Role="cadet" Type="Self.cadet" Multiplicity="0..1" />
+          <End Role="stock_issue" Type="Self.stock_issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cadet">
+              <PropertyRef Name="cadetid" />
+            </Principal>
+            <Dependent Role="stock_issue">
+              <PropertyRef Name="cadetid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_enrollment_users">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="enrollment" Type="Self.enrollment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userid" />
+            </Principal>
+            <Dependent Role="enrollment">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_stock_issue_stocks">
+          <End Role="stocks" Type="Self.stock" Multiplicity="1" />
+          <End Role="stock_issue" Type="Self.stock_issue" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="stocks">
+              <PropertyRef Name="stockid" />
+            </Principal>
+            <Dependent Role="stock_issue">
+              <PropertyRef Name="stockissueid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_nccEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cadets" EntityType="Self.cadet" />
+          <EntitySet Name="enrollments" EntityType="Self.enrollment" />
+          <EntitySet Name="stock_issue" EntityType="Self.stock_issue" />
+          <EntitySet Name="stocks" EntityType="Self.stock" />
+          <EntitySet Name="tb_event" EntityType="Self.tb_event" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_stock_issue_cadet" Association="Self.FK_stock_issue_cadet">
+            <End Role="cadet" EntitySet="cadets" />
+            <End Role="stock_issue" EntitySet="stock_issue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_enrollment_users" Association="Self.FK_enrollment_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="enrollment" EntitySet="enrollments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_stock_issue_stocks" Association="Self.FK_stock_issue_stocks">
+            <End Role="stocks" EntitySet="stocks" />
+            <End Role="stock_issue" EntitySet="stock_issue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_nccModelStoreContainer" CdmEntityContainer="db_nccEntities">
+          <EntitySetMapping Name="cadets">
+            <EntityTypeMapping TypeName="db_nccModel.cadet">
+              <MappingFragment StoreEntitySet="cadet">
+                <ScalarProperty Name="cadetid" ColumnName="cadetid" />
+                <ScalarProperty Name="nccregno" ColumnName="nccregno" />
+                <ScalarProperty Name="cadetname" ColumnName="cadetname" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="course" ColumnName="course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="enrollments">
+            <EntityTypeMapping TypeName="db_nccModel.enrollment">
+              <MappingFragment StoreEntitySet="enrollment">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="admnno" ColumnName="admnno" />
+                <ScalarProperty Name="studentname" ColumnName="studentname" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="phoneno" ColumnName="phoneno" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="course" ColumnName="course" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="aboutdesc" ColumnName="aboutdesc" />
+                <ScalarProperty Name="reason" ColumnName="reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stock_issue">
+            <EntityTypeMapping TypeName="db_nccModel.stock_issue">
+              <MappingFragment StoreEntitySet="stock_issue">
+                <ScalarProperty Name="stockissueid" ColumnName="stockissueid" />
+                <ScalarProperty Name="cadetid" ColumnName="cadetid" />
+                <ScalarProperty Name="issuedate" ColumnName="issuedate" />
+                <ScalarProperty Name="issueqty" ColumnName="issueqty" />
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stocks">
+            <EntityTypeMapping TypeName="db_nccModel.stock">
+              <MappingFragment StoreEntitySet="stocks">
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="stockname" ColumnName="stockname" />
+                <ScalarProperty Name="stockqty" ColumnName="stockqty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_event">
+            <EntityTypeMapping TypeName="db_nccModel.tb_event">
+              <MappingFragment StoreEntitySet="tb_event">
+                <ScalarProperty Name="eventid" ColumnName="eventid" />
+                <ScalarProperty Name="eventname" ColumnName="eventname" />
+                <ScalarProperty Name="eventdate" ColumnName="eventdate" />
+                <ScalarProperty Name="eventvenue" ColumnName="eventvenue" />
+                <ScalarProperty Name="eventimage" ColumnName="eventimage" />
+                <ScalarProperty Name="eventdesc" ColumnName="eventdesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="db_nccModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

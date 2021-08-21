@@ -1,0 +1,57 @@
+﻿@model IEnumerable<NCCWebsite002.stock_issue>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.issuedate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.issueqty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stockid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cadet.nccregno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stock.stockname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.issuedate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.issueqty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stockid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cadet.nccregno)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stock.stockname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.stockissueid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.stockissueid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.stockissueid })
+        </td>
+    </tr>
+}
+
+</table>
